@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suma de Vectores - Método del Paralelogramo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+        
+        .input-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-right: 10px;
+        }
+        
+        button:hover {
+            background: #5568d3;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        #vectorInputs {
+            margin-top: 20px;
+        }
+        
+        .vector-input {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .vector-input h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .results-section {
+            display: none;
+            margin-top: 30px;
+        }
+        
+        .procedimiento {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .procedimiento h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        .paso {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .paso h3 {
+            color: #28a745;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .formula {
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        
+        .resultado-final {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .resultado-final h2 {
+            margin-bottom: 15px;
+        }
+        
+        canvas {
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            max-width: 100%;
+            background: white;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📐 Suma de Vectores - Método del Paralelogramo</h1>
+        
+        <div class="input-section">
+            <div class="form-group">
+                <label for="numVectores">¿Cuántos vectores deseas sumar?</label>
+                <input type="number" id="numVectores" min="1" max="10" value="2">
+            </div>
+            <button onclick="generarInputs()">Generar Campos</button>
+        </div>
+        
+        <div id="vectorInputs"></div>
+        
+        <div class="results-section" id="results">
+            <div class="procedimiento">
+                <h2>📝 Procedimiento Completo</h2>
+                <div id="procedimientoContent"></div>
+            </div>
+            
+            <div class="resultado-final">
+                <h2>✅ Vector Resultante</h2>
+                <div id="resultadoFinal"></div>
+            </div>
+            
+            <h2 style="margin-top: 30px; color: #667eea;">📊 Tabla Resumen</h2>
+            <div id="tablaResumen"></div>
+            
+            <h2 style="margin-top: 30px; color: #667eea;">📈 Gráfica</h2>
+            <canvas id="canvas" width="800" height="600"></canvas>
+        </div>
+    </div>
+    
+    <script>
+        function generarInputs() {
+            const n = parseInt(document.getElementById('numVectores').value);
+            const container = document.getElementById('vectorInputs');
+            
+            if (n < 1 || n > 10) {
+                alert('Por favor ingresa un número entre 1 y 10');
+                return;
+            }
+            
+            let html = '';
+            for (let i = 1; i <= n; i++) {
+                html += `
+                    <div class="vector-input">
+                        <h3>Vector F${i}</h3>
+                        <div class="input-row">
+                            <div class="form-group">
+                                <label>Magnitud:</label>
+                                <input type="number" id="mag${i}" step="0.01" value="${i * 10}">
+                            </div>
+                            <div class="form-group">
+                                <label>Ángulo (grados):</label>
+                                <input type="number" id="ang${i}" step="0.01" value="${i * 30}">
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            html += '<button onclick="calcular()">Calcular Suma de Vectores</button>';
+            html += '<button class="btn-secondary" onclick="limpiar()">Limpiar</button>';
+            
+            container.innerHTML = html;
+        }
+        
+        function calcular() {
+            const n = parseInt(document.getElementById('numVectores').value);
+            const vectores = [];
+            
+            // Recopilar datos
+            for (let i = 1; i <= n; i++) {
+                const mag = parseFloat(document.getElementById(`mag${i}`).value);
+                const ang = parseFloat(document.getElementById(`ang${i}`).value);
+                
+                const angRad = ang * Math.PI / 180;
+                const x = mag * Math.cos(angRad);
+                const y = mag * Math.sin(angRad);
+                
+                vectores.push({
+                    num: i,
+                    magnitud: mag,
+                    angulo: ang,
+                    x: x,
+                    y: y
+                });
+            }
+            
+            // Calcular suma
+            let sumaX = 0;
+            let sumaY = 0;
+            
+            vectores.forEach(v => {
+                sumaX += v.x;
+                sumaY += v.y;
+            });
+            
+            const magnitudResultante = Math.sqrt(sumaX * sumaX + sumaY * sumaY);
+            const anguloResultante = Math.atan2(sumaY, sumaX) * 180 / Math.PI;
+            
+            mostrarProcedimiento(vectores, sumaX, sumaY, magnitudResultante, anguloResultante);
+            
+            mostrarTabla(vectores, sumaX, sumaY, magnitudResultante, anguloResultante);
+            
+            graficar(vectores, sumaX, sumaY);
+            
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function mostrarProcedimiento(vectores, sumaX, sumaY, magnitud, angulo) {
+            let html = '';
+            
+            html += '<div class="paso">';
+            html += '<h3>Paso 1: Descomposición de vectores en componentes X y Y</h3>';
+            html += '<p>Para cada vector aplicamos las fórmulas:</p>';
+            html += '<div class="formula">Componente X = Magnitud × cos(ángulo)<br>Componente Y = Magnitud × sin(ángulo)</div>';
+            
+            vectores.forEach(v => {
+                html += `<p><strong>Vector F${v.num}:</strong></p>`;
+                html += `<div class="formula">`;
+                html += `F${v.num}x = ${v.magnitud.toFixed(2)} × cos(${v.angulo.toFixed(2)}°) = ${v.x.toFixed(4)}<br>`;
+                html += `F${v.num}y = ${v.magnitud.toFixed(2)} × sin(${v.angulo.toFixed(2)}°) = ${v.y.toFixed(4)}`;
+                html += `</div>`;
+                html += `<p>F${v.num} = ${v.x.toFixed(4)}i + ${v.y.toFixed(4)}j</p>`;
+            });
+            html += '</div>';
+            
+            // Paso 2: Suma de componentes
+            html += '<div class="paso">';
+            html += '<h3>Paso 2: Suma de las componentes X</h3>';
+            html += '<div class="formula">';
+            html += 'FRx = ';
+            vectores.forEach((v, idx) => {
+                html += `F${v.num}x${idx < vectores.length - 1 ? ' + ' : ''}`;
+            });
+            html += '<br>FRx = ';
+            vectores.forEach((v, idx) => {
+                html += `${v.x.toFixed(4)}${idx < vectores.length - 1 ? ' + ' : ''}`;
+            });
+            html += `<br>FRx = ${sumaX.toFixed(4)}`;
+            html += '</div></div>';
+            
+            html += '<div class="paso">';
+            html += '<h3>Paso 3: Suma de las componentes Y</h3>';
+            html += '<div class="formula">';
+            html += 'FRy = ';
+            vectores.forEach((v, idx) => {
+                html += `F${v.num}y${idx < vectores.length - 1 ? ' + ' : ''}`;
+            });
+            html += '<br>FRy = ';
+            vectores.forEach((v, idx) => {
+                html += `${v.y.toFixed(4)}${idx < vectores.length - 1 ? ' + ' : ''}`;
+            });
+            html += `<br>FRy = ${sumaY.toFixed(4)}`;
+            html += '</div></div>';
+            
+            // Paso 4: Magnitud
+            html += '<div class="paso">';
+            html += '<h3>Paso 4: Cálculo de la magnitud del vector resultante</h3>';
+            html += '<div class="formula">';
+            html += `|FR| = √(FRx² + FRy²)<br>`;
+            html += `|FR| = √((${sumaX.toFixed(4)})² + (${sumaY.toFixed(4)})²)<br>`;
+            html += `|FR| = √(${(sumaX*sumaX).toFixed(4)} + ${(sumaY*sumaY).toFixed(4)})<br>`;
+            html += `|FR| = √${(sumaX*sumaX + sumaY*sumaY).toFixed(4)}<br>`;
+            html += `|FR| = ${magnitud.toFixed(4)}`;
+            html += '</div></div>';
+            
+            // Paso 5: Ángulo
+            html += '<div class="paso">';
+            html += '<h3>Paso 5: Cálculo del ángulo del vector resultante</h3>';
+            html += '<div class="formula">';
+            html += `θ = arctan(FRy / FRx)<br>`;
+            html += `θ = arctan(${sumaY.toFixed(4)} / ${sumaX.toFixed(4)})<br>`;
+            html += `θ = arctan(${(sumaY/sumaX).toFixed(4)})<br>`;
+            html += `θ = ${angulo.toFixed(4)}°`;
+            html += '</div></div>';
+            
+            document.getElementById('procedimientoContent').innerHTML = html;
+            
+            // Resultado final
+            document.getElementById('resultadoFinal').innerHTML = `
+                <p><strong>Vector Resultante en forma rectangular:</strong></p>
+                <p style="font-size: 1.3em; margin: 10px 0;">FR = ${sumaX.toFixed(4)}i + ${sumaY.toFixed(4)}j</p>
+                <hr style="border-color: rgba(255,255,255,0.3); margin: 15px 0;">
+                <p><strong>Vector Resultante en forma polar:</strong></p>
+                <p style="font-size: 1.3em; margin: 10px 0;">|FR| = ${magnitud.toFixed(4)}</p>
+                <p style="font-size: 1.3em; margin: 10px 0;">θ = ${angulo.toFixed(4)}°</p>
+            `;
+        }
+        
+        function mostrarTabla(vectores, sumaX, sumaY, magnitud, angulo) {
+            let html = '<table>';
+            html += '<tr><th>Vector</th><th>Magnitud</th><th>Ángulo (°)</th><th>Comp. X</th><th>Comp. Y</th></tr>';
+            
+            vectores.forEach(v => {
+                html += `<tr>`;
+                html += `<td>F${v.num}</td>`;
+                html += `<td>${v.magnitud.toFixed(4)}</td>`;
+                html += `<td>${v.angulo.toFixed(4)}</td>`;
+                html += `<td>${v.x.toFixed(4)}</td>`;
+                html += `<td>${v.y.toFixed(4)}</td>`;
+                html += `</tr>`;
+            });
+            
+            html += `<tr style="background: #667eea; color: white; font-weight: bold;">`;
+            html += `<td>FR</td>`;
+            html += `<td>${magnitud.toFixed(4)}</td>`;
+            html += `<td>${angulo.toFixed(4)}</td>`;
+            html += `<td>${sumaX.toFixed(4)}</td>`;
+            html += `<td>${sumaY.toFixed(4)}</td>`;
+            html += `</tr>`;
+            html += '</table>';
+            
+            document.getElementById('tablaResumen').innerHTML = html;
+        }
+        
+        function graficar(vectores, sumaX, sumaY) {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const scale = 20;
+            
+            ctx.strokeStyle = '#e0e0e0';
+            ctx.lineWidth = 1;
+            for (let i = -20; i <= 20; i++) {
+                ctx.beginPath();
+                ctx.moveTo(centerX + i * scale, 0);
+                ctx.lineTo(centerX + i * scale, canvas.height);
+                ctx.stroke();
+                
+                ctx.beginPath();
+                ctx.moveTo(0, centerY + i * scale);
+                ctx.lineTo(canvas.width, centerY + i * scale);
+                ctx.stroke();
+            }
+            
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0, centerY);
+            ctx.lineTo(canvas.width, centerY);
+            ctx.stroke();
+            
+            ctx.beginPath();
+            ctx.moveTo(centerX, 0);
+            ctx.lineTo(centerX, canvas.height);
+            ctx.stroke();
+            
+            ctx.fillStyle = '#000';
+            ctx.font = '14px Arial';
+            ctx.fillText('X (i)', canvas.width - 30, centerY - 10);
+            ctx.fillText('Y (j)', centerX + 10, 20);
+            
+            const colores = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E2'];
+            
+            vectores.forEach((v, idx) => {
+                const color = colores[idx % colores.length];
+                dibujarVector(ctx, centerX, centerY, v.x * scale, -v.y * scale, color, `F${v.num}`, 2);
+            });
+            
+            dibujarVector(ctx, centerX, centerY, sumaX * scale, -sumaY * scale, '#FF8C00', 'FR', 4);
+        }
+        
+        function dibujarVector(ctx, x0, y0, dx, dy, color, label, width) {
+            ctx.strokeStyle = color;
+            ctx.fillStyle = color;
+            ctx.lineWidth = width;
+            
+            ctx.beginPath();
+            ctx.moveTo(x0, y0);
+            ctx.lineTo(x0 + dx, y0 + dy);
+            ctx.stroke();
+            
+            const angle = Math.atan2(dy, dx);
+            const arrowLength = 15;
+            
+            ctx.beginPath();
+            ctx.moveTo(x0 + dx, y0 + dy);
+            ctx.lineTo(
+                x0 + dx - arrowLength * Math.cos(angle - Math.PI / 6),
+                y0 + dy - arrowLength * Math.sin(angle - Math.PI / 6)
+            );
+            ctx.moveTo(x0 + dx, y0 + dy);
+            ctx.lineTo(
+                x0 + dx - arrowLength * Math.cos(angle + Math.PI / 6),
+                y0 + dy - arrowLength * Math.sin(angle + Math.PI / 6)
+            );
+            ctx.stroke();
+            
+            ctx.font = 'bold 14px Arial';
+            ctx.fillText(label, x0 + dx / 2 - 10, y0 + dy / 2 - 10);
+        }
+        
+        function limpiar() {
+            document.getElementById('results').style.display = 'none';
+            document.getElementById('vectorInputs').innerHTML = '';
+        }
+        
+        window.onload = () => generarInputs();
+    </script>
+</body>
+</html>

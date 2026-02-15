@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Revolución Científica y la Ilustración</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #0a1929;
+            --primary-blue: #1e3a5f;
+            --accent-gold: #d4af37;
+            --accent-copper: #b87333;
+            --cream: #f5f1e8;
+            --light-blue: #4a7ba7;
+            --navy: #162838;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            background: var(--primary-dark);
+            color: var(--cream);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .background-stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 25, 41, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2rem;
+            z-index: 100;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-family: 'Libre Baskerville', serif;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent-gold);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent-gold);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(74, 123, 167, 0.15), transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 300;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            letter-spacing: 3px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-weight: 600;
+            color: var(--light-blue);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .hero .intro {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.3rem;
+            line-height: 2;
+            animation: fadeInUp 1s ease-out 0.6s both;
+            color: var(--cream);
+        }
+
+        .hero .author {
+            max-width: 800px;
+            margin: 3rem auto 0;
+            font-size: 1.1rem;
+            color: var(--accent-copper);
+            font-style: italic;
+            animation: fadeInUp 1s ease-out 0.9s both;
+        }
+
+        .hero .author strong {
+            color: var(--accent-gold);
+            font-style: normal;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 600;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(to right, var(--accent-gold), transparent);
+        }
+
+        .section-subtitle {
+            font-size: 1.5rem;
+            color: var(--light-blue);
+            margin-bottom: 3rem;
+            font-style: italic;
+        }
+
+        /* Content Cards */
+        .content-card {
+            background: rgba(30, 58, 95, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 8px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            backdrop-filter: blur(5px);
+            transition: all 0.4s ease;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(212, 175, 55, 0.5);
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .content-card h3 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 2rem;
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .content-card h4 {
+            font-size: 1.5rem;
+            color: var(--light-blue);
+            margin: 2rem 0 1rem;
+        }
+
+        .content-card p, .content-card li {
+            font-size: 1.2rem;
+            color: var(--cream);
+            margin-bottom: 1rem;
+        }
+
+        .content-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .content-card li {
+            padding-left: 2rem;
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .content-card li::before {
+            content: '◆';
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+            font-size: 0.8rem;
+        }
+
+        /* Image Styling */
+        .image-container {
+            text-align: center;
+            margin: 2.5rem 0;
+            padding: 0 1rem;
+        }
+
+        .image-container img {
+            width: 100%;
+            max-width: 850px;
+            height: auto;
+            border-radius: 8px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .image-container img:hover {
+            border-color: var(--accent-gold);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Small images in cards */
+        .content-card img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .content-card img:hover {
+            border-color: var(--accent-gold);
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            background: rgba(30, 58, 95, 0.4);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 3rem 0;
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th {
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--accent-gold);
+            padding: 1.5rem;
+            text-align: left;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .comparison-table td {
+            padding: 1.5rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            font-size: 1.1rem;
+        }
+
+        .comparison-table tr:hover {
+            background: rgba(74, 123, 167, 0.2);
+        }
+
+        .comparison-table td:first-child {
+            color: var(--light-blue);
+            font-weight: 600;
+        }
+
+        /* Bibliography */
+        .bibliography {
+            background: rgba(22, 40, 56, 0.5);
+            border-left: 4px solid var(--accent-gold);
+            padding: 3rem;
+            border-radius: 8px;
+        }
+
+        .bibliography h3 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 2rem;
+            color: var(--accent-gold);
+            margin-bottom: 2rem;
+        }
+
+        .bibliography .citation {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+            text-indent: -2rem;
+            font-size: 1.1rem;
+            color: var(--cream);
+            line-height: 1.8;
+        }
+
+        .bibliography .citation a {
+            color: var(--light-blue);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--light-blue);
+            transition: color 0.3s ease;
+        }
+
+        .bibliography .citation a:hover {
+            color: var(--accent-gold);
+            border-bottom-color: var(--accent-gold);
+        }
+
+        .bibliography .citation a[href*="youtube"] {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.8rem 1.5rem;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            border: none;
+            border-bottom: none;
+            transition: all 0.3s ease;
+        }
+
+        .bibliography .citation a[href*="youtube"]:hover {
+            background: var(--accent-copper);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Decorative Elements */
+        .ornament {
+            text-align: center;
+            color: var(--accent-gold);
+            font-size: 2rem;
+            margin: 4rem 0;
+            opacity: 0.6;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator::before {
+            content: '⌄';
+            font-size: 2rem;
+            color: var(--accent-gold);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: rgba(10, 25, 41, 0.8);
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            margin-top: 4rem;
+        }
+
+        footer p {
+            color: var(--light-blue);
+            font-size: 1rem;
+        }
+
+        footer .author-credit {
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+            color: var(--accent-copper);
+        }
+
+        footer .author-credit strong {
+            color: var(--accent-gold);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1.5rem;
+            }
+
+            nav a {
+                font-size: 0.8rem;
+            }
+
+            .content-card {
+                padding: 2rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 1rem;
+                font-size: 1rem;
+            }
+
+            section {
+                padding: 4rem 0;
+            }
+
+            .image-container img {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background-stars" id="stars"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#revolucion">Revolución Científica</a></li>
+            <li><a href="#ilustracion">Ilustración</a></li>
+            <li><a href="#comparacion">Comparación</a></li>
+            <li><a href="#bibliografia">Bibliografía</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="container">
+            <h1>La Revolución Científica<br>y la Ilustración</h1>
+            <p class="subtitle">El Amanecer de la Razón Moderna</p>
+            <p class="intro">
+                El periodo comprendido entre los siglos XVI y XVIII representa la ruptura más significativa con el pensamiento medieval. 
+                Se pasó de un mundo regido por la revelación divina a un mundo descifrado por la razón humana.
+            </p>
+            <p class="author">
+                <strong>Presentado por:</strong> Valenzuela Ayala Jesus イエス del 6CPGM
+            </p>
+        </div>
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <!-- Cambio de Paradigma -->
+    <section id="paradigma">
+        <div class="container">
+            <h2 class="section-title">El Cambio de Paradigma</h2>
+            <div class="content-card">
+                <p>
+                    Mientras la <strong>Revolución Científica</strong> sentó las bases físicas y matemáticas, 
+                    la <strong>Ilustración</strong> llevó esa lógica al plano social, político y moral. 
+                    Estos dos movimientos transformaron radicalmente la comprensión humana del universo y de la sociedad.
+                </p>
+            </div>
+            <div class="image-container">
+                <img src="https://repository.uaeh.edu.mx/scige/boletin/icsa/n2/multimedia/m4/m4_1.png"
+                     alt="Diagrama del cambio de paradigma">
+            </div>
+        </div>
+    </section>
+
+    <!-- Revolución Científica -->
+    <section id="revolucion">
+        <div class="container">
+            <h2 class="section-title">La Revolución Científica</h2>
+            <p class="section-subtitle">Siglos XVI - XVII</p>
+
+            <div class="content-card">
+                <h3>A. Orígenes: El Derrumbe de la Tradición</h3>
+                
+                <h4>La crisis del modelo Aristotélico</h4>
+                <p>
+                    Durante siglos, la ciencia se basó en los textos de Aristóteles y Ptolomeo, quienes sostenían que la Tierra 
+                    era inmóvil y el centro del universo. El origen de la revolución surge cuando las observaciones astronómicas 
+                    dejaron de coincidir con estos dogmas.
+                </p>
+
+                <h4>La Imprenta</h4>
+                <p>
+                    Permitió la difusión de tablas astronómicas y tratados matemáticos, evitando que el conocimiento quedara 
+                    confinado en los monasterios.
+                </p>
+
+                <h4>Necesidades Náuticas</h4>
+                <p>
+                    El auge de la navegación transoceánica exigía mapas más precisos y mejores instrumentos de orientación, 
+                    lo que forzó el desarrollo de la astronomía y la física.
+                </p>
+            </div>
+
+            <div class="image-container">
+                <img src="https://mono-storage-prod.s3.amazonaws.com/admin-assets/Helio-Geo-centrico-01-01.jpg" 
+                     alt="Sistema heliocéntrico vs geocéntrico">
+            </div>
+
+            <div class="content-card">
+                <h3>B. Características y Modos de Aplicación</h3>
+                <ul>
+                    <li>
+                        <strong>Mecanicismo:</strong> La naturaleza deja de ser vista como algo "vivo" o místico para ser 
+                        entendida como un reloj mecánico.
+                    </li>
+                    <li>
+                        <strong>El Método Científico:</strong> Aplicación sistemática de la observación, experimentación y 
+                        comprobación. No basta con la lógica teórica; se requiere evidencia física.
+                    </li>
+                    <li>
+                        <strong>Matematización de la Realidad:</strong> Se aplicó el cálculo para predecir fenómenos naturales, 
+                        desde la caída de una manzana hasta el movimiento de los planetas.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="two-column">
+                <div class="content-card">
+                    <h3>C. Ejemplos Destacados Ⅰ</h3>
+                    <h4>El Telescopio de Galileo (1609)</h4>
+                    <p>
+                        Aplicación técnica que permitió descubrir las lunas de Júpiter, probando que no todo giraba en torno a la Tierra.
+                    </p>
+                    <img src="https://vecinovirtual.com/wp-content/uploads/2017/08/galileo-galilei-telescopio.jpg"
+                         alt="Telescopio de Galileo">
+                </div>
+
+                <div class="content-card">
+                    <h3>C. Ejemplos Destacados Ⅱ</h3>
+                    <h4>La Circulación de la Sangre (William Harvey)</h4>
+                    <p>
+                        Aplicó el mecanicismo a la biología, entendiendo el corazón como una bomba hidráulica, rompiendo con 
+                        siglos de medicina basada en "humores" espirituales.
+                    </p>
+                    <img src="https://iessuel.org/salud/images/wharvey.jpg"
+                         alt="William Harvey y la circulación sanguínea">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="ornament">❖ ❖ ❖</div>
+
+    <!-- La Ilustración -->
+    <section id="ilustracion">
+        <div class="container">
+            <h2 class="section-title">La Ilustración</h2>
+            <p class="section-subtitle">Siglo XVIII</p>
+
+            <div class="content-card">
+                <h3>A. Orígenes: De la Naturaleza a la Sociedad</h3>
+                
+                <h4>Éxito de la Ciencia</h4>
+                <p>
+                    Al ver que Newton había descubierto las "leyes de la naturaleza", los filósofos pensaron: 
+                    <em>"¿Existen también leyes naturales para la política y la economía?"</em>
+                </p>
+
+                <h4>La Paz de Westfalia</h4>
+                <p>
+                    El fin de las guerras de religión en Europa permitió un clima de mayor tolerancia para el debate de 
+                    ideas no religiosas.
+                </p>
+            </div>
+
+            <div class="image-container">
+                <img src="https://historiaeweb.com/wp-content/uploads/2017/11/ilustrados-reunidos-en-el-salc3b3n-literario-de-madame-geoffrin-768x506.jpg" 
+                     alt="Reunión de pensadores ilustrados en el salón literario de Madame Geoffrin">
+            </div>
+
+            <div class="content-card">
+                <h3>B. Características y Modos de Aplicación</h3>
+                <ul>
+                    <li>
+                        <strong>Racionalismo Universal:</strong> La convicción de que la razón es común a todos los hombres 
+                        y puede resolver problemas como la pobreza o la tiranía.
+                    </li>
+                    <li>
+                        <strong>Educación como Herramienta:</strong> La aplicación de la pedagogía para "iluminar" a las masas 
+                        y sacarlas de la superstición.
+                    </li>
+                    <li>
+                        <strong>Antropocentrismo Político:</strong> El hombre es el dueño de su destino; el poder no emana de 
+                        Dios hacia el Rey, sino del pueblo hacia el Estado.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="two-column">
+                <div class="content-card">
+                    <h3>C. Ejemplos que Apuntalan la Actividad Ⅰ</h3>
+                    <h4>La División de Poderes (Montesquieu)</h4>
+                    <p>
+                        Aplicación de un sistema de "pesos y contrapesos" (como una balanza física) al gobierno para evitar 
+                        el despotismo.
+                    </p>
+                    <img src="https://confilegal.com/wp-content/uploads/2016/11/Montesquieu2.jpg"
+                         alt="Montesquieu">
+                </div>
+
+                <div class="content-card">
+                    <h3>C. Ejemplos que Apuntalan la Actividad Ⅱ</h3>
+                    <h4>El Contrato Social (Rousseau)</h4>
+                    <p>
+                        La idea de que la sociedad se rige por un acuerdo voluntario, base del derecho constitucional moderno.
+                    </p>
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1665658358i/62982211.jpg"
+                         alt="El Contrato Social de Rousseau">
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h4>La Vacuna contra la Viruela (Edward Jenner)</h4>
+                <p>
+                    Un ejemplo donde la ciencia y la mentalidad ilustrada se unen para el progreso del bienestar público.
+                </p>
+                <img src="https://www.mayoclinic.org/-/media/kcms/gbs/patient-consumer/images/2022/01/13/20/28/edward-jenner-child-smallpox-2208x1472-creativecommons.jpg"
+                     alt="Edward Jenner y la vacuna contra la viruela">
+            </div>
+        </div>
+    </section>
+
+    <div class="ornament">❖ ❖ ❖</div>
+
+    <!-- Tabla Comparativa -->
+    <section id="comparacion">
+        <div class="container">
+            <h2 class="section-title">Tabla Comparativa</h2>
+            <p class="section-subtitle">Aplicación de Conocimiento</p>
+
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Aspecto</th>
+                            <th>Revolución Científica</th>
+                            <th>Ilustración</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Objetivo</td>
+                            <td>Entender el funcionamiento del universo.</td>
+                            <td>Mejorar la vida del ser humano en sociedad.</td>
+                        </tr>
+                        <tr>
+                            <td>Herramienta</td>
+                            <td>Matemáticas, telescopio, laboratorio.</td>
+                            <td>Educación, leyes, enciclopedias, debate.</td>
+                        </tr>
+                        <tr>
+                            <td>Impacto</td>
+                            <td>Fin del Geocentrismo y nacimiento de la física.</td>
+                            <td>Fin del Absolutismo y nacimiento de la Democracia.</td>
+                        </tr>
+                        <tr>
+                            <td>Máximo Exponente</td>
+                            <td>Isaac Newton</td>
+                            <td>Voltaire / Immanuel Kant</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bibliografía -->
+    <section id="bibliografia">
+        <div class="container">
+            <div class="bibliography">
+                <h3>Fuentes Bibliográficas</h3>
+                <p style="font-style: italic; margin-bottom: 2rem; color: var(--light-blue);">
+                    Formato APA 7ma Edición
+                </p>
+
+                <div class="citation">
+                    Henry, J. (2015). <em>La Revolución Científica y el origen de la ciencia moderna</em>. Alianza Editorial.
+                </div>
+
+                <div class="citation">
+                    Munck, T. (2001). <em>Historia social de la Ilustración</em>. Editorial Crítica.
+                </div>
+
+                <div class="citation">
+                    Sánchez-Blanco, F. (2022). La libertad de pensamiento y los orígenes de la modernidad europea. 
+                    <em>Revista de Estudios Históricos</em>, <em>24</em>(1), 15-38.
+                </div>
+
+                <div class="citation">
+                    Patrimonio Nacional de España. (2024). <em>La ciencia en el Siglo de las Luces: Museos y Gabinetes</em>. 
+                    <a href="https://www.patrimonionacional.es/articulos/ilustracion-ciencia" target="_blank">
+                        https://www.patrimonionacional.es/articulos/ilustracion-ciencia
+                    </a>
+                </div>
+
+                <div class="citation" style="background: rgba(74, 123, 167, 0.2); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--accent-gold);">
+                    <strong>Material Audiovisual:</strong><br>
+                    Physics Videos by Eugene Khutoryansky. (2024). <em>La Revolución Científica</em> [Video]. YouTube.<br>
+                    <a href="https://www.youtube.com/watch?v=ftzw7cbKTxU&t=6s" target="_blank">
+                        ▶ Ver Video en YouTube
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>La Revolución Científica y la Ilustración • Siglos XVI - XVIII</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.7;">
+            "Sapere aude" - Atrévete a saber
+        </p>
+        <p class="author-credit">
+            <strong>Presentado por:</strong> [Tu nombre aquí]
+        </p>
+    </footer>
+
+    <!-- JavaScript for stars animation -->
+    <script>
+        // Generate animated stars
+        const starsContainer = document.getElementById('stars');
+        const numStars = 100;
+
+        for (let i = 0; i < numStars; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    const offsetTop = targetSection.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add scroll reveal animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.content-card, .comparison-table').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
